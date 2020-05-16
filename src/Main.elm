@@ -7,6 +7,7 @@ import Element.Border
 import Element.Events
 import Element.Input
 import Html exposing (Html)
+import Html.Attributes
 
 
 type alias Answer =
@@ -117,7 +118,7 @@ update msg model =
 
 viewAnswerInput : Answer -> Element.Element Msg
 viewAnswerInput answerModel =
-    Element.Input.text [ Element.Border.width 0 ]
+    Element.Input.text [ Element.Border.width 0, Element.htmlAttribute (Html.Attributes.type_ "number") ]
         { onChange = AnswerGiven answerModel.oneIndex
         , text =
             answerModel.yourAnswer
