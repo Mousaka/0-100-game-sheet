@@ -11392,6 +11392,7 @@ var $mdgriffith$elm_ui$Internal$Model$Fill = function (a) {
 };
 var $mdgriffith$elm_ui$Element$fill = $mdgriffith$elm_ui$Internal$Model$Fill(1);
 var $mdgriffith$elm_ui$Element$fillPortion = $mdgriffith$elm_ui$Internal$Model$Fill;
+var $mdgriffith$elm_ui$Element$htmlAttribute = $mdgriffith$elm_ui$Internal$Model$Attr;
 var $mdgriffith$elm_ui$Element$Input$HiddenLabel = function (a) {
 	return {$: 'HiddenLabel', a: a};
 };
@@ -11809,7 +11810,6 @@ var $mdgriffith$elm_ui$Element$paddingEach = function (_v0) {
 			bottom,
 			left));
 };
-var $mdgriffith$elm_ui$Element$htmlAttribute = $mdgriffith$elm_ui$Internal$Model$Attr;
 var $mdgriffith$elm_ui$Element$Input$isFill = function (len) {
 	isFill:
 	while (true) {
@@ -12466,7 +12466,9 @@ var $author$project$Main$viewPartSum = F3(
 						$mdgriffith$elm_ui$Element$Input$text,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$Border$width(0)
+								$mdgriffith$elm_ui$Element$Border$width(0),
+								$mdgriffith$elm_ui$Element$htmlAttribute(
+								$elm$html$Html$Attributes$type_('number'))
 							]),
 						{
 							label: $mdgriffith$elm_ui$Element$Input$labelHidden(''),
@@ -12863,7 +12865,9 @@ var $author$project$Main$viewDiffInput = function (answerModel) {
 				$mdgriffith$elm_ui$Element$Input$text,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Border$width(0)
+						$mdgriffith$elm_ui$Element$Border$width(0),
+						$mdgriffith$elm_ui$Element$htmlAttribute(
+						$elm$html$Html$Attributes$type_('number'))
 					]),
 				{
 					label: $mdgriffith$elm_ui$Element$Input$labelHidden(''),
@@ -12879,7 +12883,9 @@ var $author$project$Main$viewDiffInput = function (answerModel) {
 				_List_fromArray(
 					[
 						$mdgriffith$elm_ui$Element$Background$color(
-						A3($mdgriffith$elm_ui$Element$rgb, 0, 128, 0))
+						A3($mdgriffith$elm_ui$Element$rgb, 0, 128, 0)),
+						$mdgriffith$elm_ui$Element$htmlAttribute(
+						$elm$html$Html$Attributes$type_('number'))
 					]),
 				{
 					label: $mdgriffith$elm_ui$Element$text('-10'),

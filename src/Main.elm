@@ -132,7 +132,7 @@ viewAnswerInput answerModel =
 viewDiffInput : Answer -> Element.Element Msg
 viewDiffInput answerModel =
     Element.row [ Element.height fill ]
-        [ Element.Input.text [ Element.Border.width 0 ]
+        [ Element.Input.text [ Element.Border.width 0, Element.htmlAttribute (Html.Attributes.type_ "number") ]
             { onChange = DiffGiven answerModel.oneIndex
             , text =
                 answerModel.diff
@@ -142,7 +142,7 @@ viewDiffInput answerModel =
             , label = Element.Input.labelHidden ""
             }
         , Element.Input.button
-            [ Element.Background.color (Element.rgb 0 128 0) ]
+            [ Element.Background.color (Element.rgb 0 128 0), Element.htmlAttribute (Html.Attributes.type_ "number") ]
             { onPress =
                 Just (DiffGiven answerModel.oneIndex "-10")
             , label =
@@ -210,7 +210,7 @@ viewPartSum name msg sum =
             ]
             (Element.el [ Element.alignRight, Element.padding 10 ] (Element.text name))
         , Element.el [ Element.alignRight, Element.width (fillPortion 3) ]
-            (Element.Input.text [ Element.Border.width 0 ]
+            (Element.Input.text [ Element.Border.width 0, Element.htmlAttribute (Html.Attributes.type_ "number") ]
                 { onChange = msg
                 , text = sum
                 , placeholder = Nothing
