@@ -5,6 +5,7 @@ import Element exposing (..)
 import Element.Background
 import Element.Border
 import Element.Events
+import Element.Font
 import Element.Input
 import Html exposing (Html)
 import Html.Attributes
@@ -118,7 +119,7 @@ update msg model =
 
 viewAnswerInput : Answer -> Element.Element Msg
 viewAnswerInput answerModel =
-    Element.Input.text [ Element.Border.width 0, Element.htmlAttribute (Html.Attributes.type_ "tel") ]
+    Element.Input.text [ Element.height (fill |> minimum 100), Element.Border.width 0, Element.htmlAttribute (Html.Attributes.type_ "tel") ]
         { onChange = AnswerGiven answerModel.oneIndex
         , text =
             answerModel.yourAnswer
@@ -131,8 +132,8 @@ viewAnswerInput answerModel =
 
 viewDiffInput : Answer -> Element.Element Msg
 viewDiffInput answerModel =
-    Element.row [ Element.height fill ]
-        [ Element.Input.text [ Element.Border.width 0, Element.htmlAttribute (Html.Attributes.type_ "tel") ]
+    Element.row [ Element.height fill, Element.width fill ]
+        [ Element.Input.text [ Element.height (fill |> minimum 100), Element.Border.width 0, Element.htmlAttribute (Html.Attributes.type_ "tel") ]
             { onChange = DiffGiven answerModel.oneIndex
             , text =
                 answerModel.diff
@@ -142,7 +143,7 @@ viewDiffInput answerModel =
             , label = Element.Input.labelHidden ""
             }
         , Element.Input.button
-            [ Element.Background.color (Element.rgb 0 128 0), Element.htmlAttribute (Html.Attributes.type_ "tel") ]
+            [ Element.width (Element.fill |> maximum 50), Element.height Element.fill, Element.Background.color (Element.rgb 0 128 0), Element.htmlAttribute (Html.Attributes.type_ "tel") ]
             { onPress =
                 Just (DiffGiven answerModel.oneIndex "-10")
             , label =
@@ -160,7 +161,8 @@ viewTable withHeader answers =
               , view =
                     \answer ->
                         Element.el
-                            [ Element.height Element.fill
+                            [ Element.height (fill |> minimum 100)
+                            , Element.height Element.fill
                             , Element.Border.widthEach { left = 0, right = 1, top = 0, bottom = 1 }
                             , Element.padding 10
                             ]
@@ -168,26 +170,26 @@ viewTable withHeader answers =
               }
             , { header =
                     if withHeader then
-                        Element.text "Your answer 0-100"
+                        Element.el [ Element.Font.size 18 ] (Element.text "Your answer 0-100")
 
                     else
                         Element.none
               , width = fillPortion 3
               , view =
                     \answer ->
-                        Element.el [ Element.Border.widthEach { left = 0, right = 1, top = 0, bottom = 1 } ]
+                        Element.el [ Element.height (fill |> minimum 100), Element.Border.widthEach { left = 0, right = 1, top = 0, bottom = 1 } ]
                             (viewAnswerInput answer)
               }
             , { header =
                     if withHeader then
-                        Element.text "Diff/Points"
+                        Element.el [ Element.Font.size 18 ] (Element.text "Diff/Points")
 
                     else
                         Element.none
               , width = fillPortion 3
               , view =
                     \answer ->
-                        Element.el [ Element.Border.widthEach { left = 0, right = 1, top = 0, bottom = 1 } ]
+                        Element.el [ Element.height (fill |> minimum 100), Element.Border.widthEach { left = 0, right = 1, top = 0, bottom = 1 } ]
                             (viewDiffInput answer)
               }
             ]
@@ -196,7 +198,7 @@ viewTable withHeader answers =
 
 viewPartSum name msg sum =
     Element.row
-        [ Element.Border.width 1
+        [ Element.Border.width 0
         , Element.height
             fill
         , Element.width (Element.fill |> minimum 400)
@@ -205,11 +207,16 @@ viewPartSum name msg sum =
             [ Element.height fill
             , Element.width (fillPortion 4)
             , Element.Border.widthEach
-                { left = 0, right = 1, top = 0, bottom = 0 }
+                { left = 0, right = 1, top = 0, bottom = 1 }
             ]
             (Element.el [ Element.alignRight, Element.padding 10 ] (Element.text name))
-        , Element.el [ Element.alignRight, Element.width (fillPortion 3) ]
-            (Element.Input.text [ Element.Border.width 0, Element.htmlAttribute (Html.Attributes.type_ "tel") ]
+        , Element.el
+            [ Element.alignRight
+            , Element.width (fillPortion 3)
+            , Element.Border.widthEach
+                { left = 0, right = 1, top = 0, bottom = 1 }
+            ]
+            (Element.Input.text [ Element.height (fill |> minimum 100), Element.Border.width 0, Element.htmlAttribute (Html.Attributes.type_ "tel") ]
                 { onChange = msg
                 , text = sum
                 , placeholder = Nothing
@@ -221,8 +228,8 @@ viewPartSum name msg sum =
 
 view : Model -> Html Msg
 view model =
-    Element.layout [ Element.padding 10, Element.width (fill |> minimum 450) ] <|
-        Element.column [ Element.spacing 0, Element.width (fill |> maximum 600) ]
+    Element.layout [ Element.Font.size 30, Element.padding 10, Element.width (fill |> minimum 450) ] <|
+        Element.column [ Element.spacing 0, Element.width (fill |> maximum 1000) ]
             [ viewTable True (model.answers |> List.take 7)
             , viewPartSum "Part sum" ChangedPartSum1 model.partSum1
             , viewTable False (model.answers |> List.drop 7 |> List.take 7)
