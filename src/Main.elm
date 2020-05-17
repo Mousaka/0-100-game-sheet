@@ -229,7 +229,7 @@ viewPartSum name msg sum =
 view : Model -> Html Msg
 view model =
     Element.layout [ Element.Font.size 30, Element.padding 10, Element.width (fill |> minimum 450) ] <|
-        Element.column [ Element.spacing 0, Element.width (fill |> maximum 1000) ]
+        Element.column [ Element.spacing 0, Element.width (fill |> maximum 1200) ]
             [ viewTable True (model.answers |> List.take 7)
             , viewPartSum "Part sum" ChangedPartSum1 model.partSum1
             , viewTable False (model.answers |> List.drop 7 |> List.take 7)
