@@ -152,7 +152,7 @@ viewDiffInput answerModel =
 
 
 viewTable withHeader answers =
-    Element.table []
+    Element.table [ Element.width (Element.fill |> minimum 400) ]
         { data = answers
         , columns =
             [ { header = Element.text ""
@@ -199,8 +199,7 @@ viewPartSum name msg sum =
         [ Element.Border.width 1
         , Element.height
             fill
-        , Element.width
-            fill
+        , Element.width (Element.fill |> minimum 400)
         ]
         [ Element.el
             [ Element.height fill
@@ -222,8 +221,8 @@ viewPartSum name msg sum =
 
 view : Model -> Html Msg
 view model =
-    Element.layout [ Element.padding 40 ] <|
-        Element.column [ Element.spacing 0 ]
+    Element.layout [ Element.padding 10, Element.width (fill |> minimum 450) ] <|
+        Element.column [ Element.spacing 0, Element.width (fill |> maximum 600) ]
             [ viewTable True (model.answers |> List.take 7)
             , viewPartSum "Part sum" ChangedPartSum1 model.partSum1
             , viewTable False (model.answers |> List.drop 7 |> List.take 7)
